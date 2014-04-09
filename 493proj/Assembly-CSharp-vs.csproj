@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\_Scripts\GameLogic.cs" />
+     <Compile Include="Assets\_Scripts\Menu.cs" />
      <Compile Include="Assets\_Scripts\PlanetRotate.cs" />
      <Compile Include="Assets\_Scripts\PlayerMovement.cs" />
   </ItemGroup>

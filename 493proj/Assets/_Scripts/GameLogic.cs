@@ -9,6 +9,8 @@ public class GameLogic : MonoBehaviour {
 	public float spawnRightBound;
 	public float despawnBottom;
 	public float timeBetweenAsteroids;
+	public float asteroidSpeed;
+	public float curveVal;
 
 	private int numOnScreen;
 	private List<GameObject> asteroids;
@@ -41,6 +43,10 @@ public class GameLogic : MonoBehaviour {
 
 		foreach (GameObject obj in asteroids) 
 		{
+			Vector3 vel = obj.transform.rigidbody.velocity;
+			vel = (1-curveVal)*vel.normalized + curveVal*(new Vector3(0,-1,0));
+			obj.transform.rigidbody.velocity = vel * asteroidSpeed;
+
 			if(obj.transform.position.y < despawnBottom)
 			{
 				Reset(obj);
@@ -54,11 +60,12 @@ public class GameLogic : MonoBehaviour {
 
 		Vector3 pos = new Vector3 (randPos, spawnTop, -20);
 
-		float randVel = Random.Range (-1, 1);
+		float randVel = (Random.value - 0.5f) * 2.0f;
 
-		Vector3 vel = new Vector3 (randVel, -3, 0);
+		Vector3 vel = new Vector3 (randVel, -0.1f, 0);
+		vel.Normalize ();
 
-		obj.transform.rigidbody.velocity = vel;
+		obj.transform.rigidbody.velocity = vel * asteroidSpeed;
 		obj.transform.position = pos;
 	}
 
