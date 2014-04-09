@@ -72,4 +72,25 @@ public class PlayerMovement : MonoBehaviour {
 
 		transform.position = new Vector3 (xpos, ypos, transform.position.z);
 	}
+
+	void OnTriggerEnter (Collider col)
+	{
+
+		if(col.gameObject.tag == "asteroid")
+		{
+			MeshCollider mesh = col.gameObject.GetComponent<MeshCollider>();
+			mesh.isTrigger = true;
+
+			MeshRenderer rend = col.gameObject.GetComponent<MeshRenderer>();
+			rend.enabled = false;
+			//col.gameObject.SetActive(false);
+		}
+
+		GameOver ();
+	}
+
+	private void GameOver()
+	{
+		Application.LoadLevel("Title");
+	}
 }

@@ -67,6 +67,12 @@ public class GameLogic : MonoBehaviour {
 
 		obj.transform.rigidbody.velocity = vel * asteroidSpeed;
 		obj.transform.position = pos;
+
+		MeshCollider col = obj.GetComponent<MeshCollider>();
+		col.isTrigger = false;
+		
+		MeshRenderer rend = obj.GetComponent<MeshRenderer>();
+		rend.enabled = true;
 	}
 
 	private void Create()
