@@ -11,8 +11,11 @@ public class Music : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		audio.clip = backgroundMusic;
-		audio.Play ();
+	public void Awake () {
+		if (!audio.isPlaying)
+		{
+			audio.clip = backgroundMusic;
+			audio.Play ();
+		}
 	}
 }

@@ -19,6 +19,7 @@ More asteroids as you continue to survive!
 
 Credit:
 Music - http://www.partnersinrhyme.com/pir/free_music_loops.shtml
+Sound effect - http://www.pacdv.com/sounds/interface_sounds-2.html
 Earth model - http://artist-3d.com/free_3d_models/dnm/model_disp.php?uid=3229
 Ship model - http://artist-3d.com/free_3d_models/dnm/model_disp.php?uid=3348
 Asteroid model - http://www.fysx.org/2010/12/12/how-about-some-3d-asteroid-models/

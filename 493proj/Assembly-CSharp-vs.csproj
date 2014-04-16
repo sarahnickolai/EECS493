@@ -52,6 +52,7 @@
      <Compile Include="Assets\_Scripts\Music.cs" />
      <Compile Include="Assets\_Scripts\PlanetRotate.cs" />
      <Compile Include="Assets\_Scripts\PlayerMovement.cs" />
+     <Compile Include="Assets\_Scripts\SoundEffect.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

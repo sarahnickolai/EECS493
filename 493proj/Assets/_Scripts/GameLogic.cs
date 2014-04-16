@@ -13,13 +13,19 @@ public class GameLogic : MonoBehaviour {
 	public float curveVal;
 	public float score;
 
+	public AudioClip thud;
+
 	private int numOnScreen;
 	private List<GameObject> asteroids;
 	private GameObject asteroid;
 	private float timeToNextAsteroid;
 
+	static public GameLogic that;
+
 	// Use this for initialization
 	void Start () {
+		that = this;
+
 		numOnScreen = 1;
 		timeToNextAsteroid = timeBetweenAsteroids;
 
@@ -38,7 +44,7 @@ public class GameLogic : MonoBehaviour {
 
 		if (timeToNextAsteroid < 0) 
 		{
-			timeToNextAsteroid = timeBetweenAsteroids + Random.value;
+			timeToNextAsteroid = timeBetweenAsteroids + 3*Random.value;
 			Create();
 		}
 
@@ -63,6 +69,11 @@ public class GameLogic : MonoBehaviour {
 		GUI.Label (new Rect (20, 20, 300, 30), scoreText);
 	}
 
+	public void PlayCollide ()
+	{
+		audio.PlayOneShot (thud);
+	}
+
 	private void Reset (GameObject obj)
 	{
 		Vector3 angVel = new Vector3 (Random.value - 0.5f, Random.value - 0.5f, Random.value - 0.5f);
@@ -70,7 +81,7 @@ public class GameLogic : MonoBehaviour {
 
 		float randPos = Random.Range(spawnLeftBound, spawnRightBound);
 
-		Vector3 pos = new Vector3 (randPos, spawnTop, -20);
+		Vector3 pos = new Vector3 (randPos, spawnTop + Random.value*2, -20);
 
 		float randVel = (Random.value - 0.5f) * 2.0f;
 
