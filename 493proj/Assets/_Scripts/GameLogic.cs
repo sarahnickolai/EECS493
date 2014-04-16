@@ -11,6 +11,7 @@ public class GameLogic : MonoBehaviour {
 	public float timeBetweenAsteroids;
 	public float asteroidSpeed;
 	public float curveVal;
+	public float score;
 
 	private int numOnScreen;
 	private List<GameObject> asteroids;
@@ -32,7 +33,7 @@ public class GameLogic : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		timeToNextAsteroid -= Time.deltaTime;
 
 		if (timeToNextAsteroid < 0) 
@@ -50,23 +51,35 @@ public class GameLogic : MonoBehaviour {
 			if(obj.transform.position.y < despawnBottom)
 			{
 				Reset(obj);
+				score++;
 			}
 		}
 	}
 
+	void OnGUI()
+	{
+		GUI.skin.label.fontSize = 20;
+		var scoreText = "Asteroids Dodged: " + score;
+		GUI.Label (new Rect (20, 20, 300, 30), scoreText);
+	}
+
 	private void Reset (GameObject obj)
 	{
+		Vector3 angVel = new Vector3 (Random.value - 0.5f, Random.value - 0.5f, Random.value - 0.5f);
+		angVel.Normalize ();
+
 		float randPos = Random.Range(spawnLeftBound, spawnRightBound);
 
 		Vector3 pos = new Vector3 (randPos, spawnTop, -20);
 
 		float randVel = (Random.value - 0.5f) * 2.0f;
 
-		Vector3 vel = new Vector3 (randVel, -0.1f, 0);
+		Vector3 vel = new Vector3 (randVel, -0.5f, 0);
 		vel.Normalize ();
 
 		obj.transform.rigidbody.velocity = vel * asteroidSpeed;
 		obj.transform.position = pos;
+		obj.transform.rigidbody.angularVelocity = angVel;
 
 		MeshCollider col = obj.GetComponent<MeshCollider>();
 		col.isTrigger = false;

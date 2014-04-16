@@ -11,7 +11,7 @@ public class PlanetRotate : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		//Vector3 center = transform.position + transform.localScale / 2;
 		transform.RotateAround (transform.position, new Vector3 (1, 1, 0), rotationSpeed);
 	}

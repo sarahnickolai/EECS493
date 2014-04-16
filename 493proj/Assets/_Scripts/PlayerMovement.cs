@@ -91,6 +91,6 @@ public class PlayerMovement : MonoBehaviour {
 
 	private void GameOver()
 	{
-		Application.LoadLevel("Title");
+		Application.LoadLevel("Death");
 	}
 }
