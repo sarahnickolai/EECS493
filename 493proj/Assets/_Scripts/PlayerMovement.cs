@@ -9,7 +9,8 @@ public class PlayerMovement : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		
+		GameObject obj = gameObject.transform.GetChild(0).gameObject;
+		obj.SetActive(false);
 	}
 	
 	// Update is called once per frame
@@ -73,19 +74,21 @@ public class PlayerMovement : MonoBehaviour {
 	}
 	
 	void OnTriggerEnter (Collider col)
-	{
-		
-		if(col.gameObject.tag == "asteroid")
+	{	
+		if (col.transform.tag == "asteroid") 
 		{
-			MeshCollider mesh = col.gameObject.GetComponent<MeshCollider>();
-			mesh.isTrigger = true;
-			
-			MeshRenderer rend = col.gameObject.GetComponent<MeshRenderer>();
-			rend.enabled = false;
-			//col.gameObject.SetActive(false);
+			GameLogic.that.GameOver ();
+		} 
+		else if (col.transform.tag == "powerup") 
+		{
+			col.gameObject.SetActive(false);
+
+			CapsuleCollider cap = gameObject.transform.GetComponent<CapsuleCollider>();
+			cap.enabled = false;
+
+			GameObject obj = gameObject.transform.GetChild(0).gameObject;
+			obj.SetActive(true);
 		}
-		
-		GameLogic.that.GameOver ();
 	}
 	
 	int ToInt(bool val)

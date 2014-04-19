@@ -10,6 +10,8 @@ public class GameLogic : MonoBehaviour {
 
 	public float timeBetweenAsteroids;
 	public float asteroidSpeed;
+	public float asteroidSize;
+	public float asteroidSizeOffset;
 	public float curveVal;
 	public int score;
 
@@ -131,20 +133,23 @@ public class GameLogic : MonoBehaviour {
 	private void Reset (GameObject obj)
 	{
 		Vector3 angVel = new Vector3 (Random.value - 0.5f, Random.value - 0.5f, Random.value - 0.5f);
-		angVel.Normalize ();
+		angVel *= 2.0f;
 
 		float randPos = Random.Range(LeftBound() - spawnSideExtra, RightBound() - spawnSideExtra);
-
 		Vector3 pos = new Vector3 (randPos, TopBound() + spawnTopExtra + Random.value*2, -20);
 
 		float randVel = (Random.value - 0.5f) * 2.0f;
-
 		Vector3 vel = new Vector3 (randVel, -0.5f, 0);
 		vel.Normalize ();
+
+		Vector3 size = new Vector3 (Random.value*2.0f - 1.0f, Random.value*2.0f - 1.0f, Random.value*2.0f - 1.0f);
+		size *= asteroidSizeOffset;
+		size += new Vector3 (asteroidSize, asteroidSize, asteroidSize);
 
 		obj.transform.rigidbody.velocity = vel * asteroidSpeed;
 		obj.transform.position = pos;
 		obj.transform.rigidbody.angularVelocity = angVel;
+		obj.transform.localScale = size;
 
 		MeshCollider col = obj.GetComponent<MeshCollider>();
 		col.isTrigger = false;
