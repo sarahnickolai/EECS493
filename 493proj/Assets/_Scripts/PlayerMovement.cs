@@ -9,8 +9,8 @@ public class PlayerMovement : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		GameObject obj = gameObject.transform.GetChild(0).gameObject;
-		obj.SetActive(false);
+		//GameObject obj = gameObject.transform.GetChild(0).gameObject;
+		//obj.SetActive(false);
 	}
 	
 	// Update is called once per frame
