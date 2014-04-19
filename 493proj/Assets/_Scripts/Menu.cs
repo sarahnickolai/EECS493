@@ -5,7 +5,8 @@ public class Menu : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
+		HighScore HS = HighScore.getInstance();
+		HS.loadFromFile ();
 	}
 	
 	// Update is called once per frame
@@ -15,14 +16,22 @@ public class Menu : MonoBehaviour {
 
 	void OnGUI()
 	{
+		GUI.skin.label.fontSize = 78;
+		var title1 = "ASTEROID";
+		GUI.skin.label.alignment = TextAnchor.MiddleCenter;
+		GUI.Label (new Rect(Screen.width/2.0f-200, Screen.height*.3f-250, 400, 500), title1);
 
-		//GUI.Box (new Rect (10, 10, 200, 150), "Main Menu");
-		if (GUI.Button (new Rect (20,200,Screen.width - 100,40), "Play Asteroid Dodge"))
+		GUI.skin.label.fontSize = 78;
+		var title2 = "TERROR";
+		GUI.skin.label.alignment = TextAnchor.MiddleCenter;
+		GUI.Label (new Rect(Screen.width/2.0f-175, Screen.height/2.0f-150, 350, 300), title2);
+
+		if (GUI.Button (new Rect (Screen.width/2.0f-100, Screen.height/2.0f+120, 200, 40), "Start Game"))
 		{
 			Application.LoadLevel("Game");
 		}
-
-		if (GUI.Button (new Rect (20,260,Screen.width - 100,40), "Exit"))
+		
+		if (GUI.Button (new Rect (Screen.width/2.0f-100, Screen.height/2.0f+165, 200, 40), "Exit"))
 		{
 			Application.Quit ();
 		}

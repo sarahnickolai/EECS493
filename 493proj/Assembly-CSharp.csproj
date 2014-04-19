@@ -46,13 +46,14 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\_Scripts\DeathMenu.cs" />
      <Compile Include="Assets\_Scripts\GameLogic.cs" />
+     <Compile Include="Assets\_Scripts\HighScore.cs" />
      <Compile Include="Assets\_Scripts\Menu.cs" />
      <Compile Include="Assets\_Scripts\Music.cs" />
      <Compile Include="Assets\_Scripts\PlanetRotate.cs" />
      <Compile Include="Assets\_Scripts\PlayerMovement.cs" />
      <Compile Include="Assets\_Scripts\SoundEffect.cs" />
+     <None Include="Assets\Resources\scores.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

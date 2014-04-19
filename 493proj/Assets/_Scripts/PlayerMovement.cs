@@ -4,10 +4,6 @@ using System.Collections;
 public class PlayerMovement : MonoBehaviour {
 	
 	public float speed;
-	public float leftBound;
-	public float rightBound;
-	public float upperBound;
-	public float lowerBound;
 	public float moveAngle;
 	public float angleSensitivity;
 	
@@ -18,6 +14,12 @@ public class PlayerMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		float leftBound = GameLogic.LeftBound ();
+		float rightBound = GameLogic.RightBound ();
+		float topBound = GameLogic.TopBound ();
+		float bottomBound = GameLogic.BottomBound ();
+
+
 		float xpos = transform.position.x;
 		float ypos = transform.position.y;
 		
@@ -31,19 +33,18 @@ public class PlayerMovement : MonoBehaviour {
 		
 		desiredOrientation.x = - xInput * moveAngle;
 		desiredOrientation.z = - yInput * moveAngle;
-		
-		
+
 		//Camera camera = Camera.main;
 		//Vector3 cameraPos = earth.transform.position;
 		
 		// Check Boundary
-		if(ypos > upperBound)
+		if(ypos > topBound)
 		{
-			ypos = upperBound;
+			ypos = topBound;
 		}
-		if(ypos < lowerBound)
+		if(ypos < bottomBound)
 		{
-			ypos = lowerBound;
+			ypos = bottomBound;
 		}
 		if(xpos < leftBound)
 		{
@@ -84,12 +85,7 @@ public class PlayerMovement : MonoBehaviour {
 			//col.gameObject.SetActive(false);
 		}
 		
-		GameOver ();
-	}
-	
-	private void GameOver()
-	{
-		Application.LoadLevel("Death");
+		GameLogic.that.GameOver ();
 	}
 	
 	int ToInt(bool val)
