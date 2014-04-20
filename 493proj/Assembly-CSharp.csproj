@@ -52,7 +52,6 @@
      <Compile Include="Assets\_Scripts\Music.cs" />
      <Compile Include="Assets\_Scripts\PlanetRotate.cs" />
      <Compile Include="Assets\_Scripts\PlayerMovement.cs" />
-     <Compile Include="Assets\_Scripts\PowerUp.cs" />
      <Compile Include="Assets\_Scripts\Shield.cs" />
      <Compile Include="Assets\_Scripts\SoundEffect.cs" />
      <None Include="Assets\Resources\scores.txt" />

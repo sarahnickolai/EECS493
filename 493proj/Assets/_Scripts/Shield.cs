@@ -12,7 +12,6 @@ public class Shield : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		shieldTimer = 0;
-		gameObject.SetActive (false);
 	}
 	
 	// Update is called once per frame
@@ -32,6 +31,8 @@ public class Shield : MonoBehaviour {
 
 				CapsuleCollider cap = gameObject.transform.parent.GetComponent<CapsuleCollider> ();
 				cap.enabled = true;
+
+				PlayerMovement.isShielded = false;
 			}
 		} 
 		else 

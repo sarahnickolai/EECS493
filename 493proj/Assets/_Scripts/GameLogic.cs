@@ -13,15 +13,19 @@ public class GameLogic : MonoBehaviour {
 	public float asteroidSize;
 	public float asteroidSizeOffset;
 	public float curveVal;
-	public int score;
+	public int numToDodge;
 
 	public AudioClip thud;
 
 	private int numOnScreen;
 	private List<GameObject> asteroids;
 	private GameObject asteroid;
+	private GameObject powerUpResource;
+	private GameObject powerUp;
 	private float timeToNextAsteroid;
 	private bool gameOver;
+	private int score;
+	private int counter;
 
 	static public GameLogic that;
 
@@ -41,6 +45,13 @@ public class GameLogic : MonoBehaviour {
 		{
 			Create ();
 		}
+
+		powerUpResource = Resources.Load<GameObject>("PowerUp");
+		
+		Vector3 pos = new Vector3 ();
+		powerUp = Instantiate (powerUpResource, pos, Quaternion.identity) as GameObject;
+		ResetPowerUp (powerUp);
+		powerUp.SetActive(false);
 	}
 	
 	// Update is called once per frame
@@ -65,7 +76,29 @@ public class GameLogic : MonoBehaviour {
 			{
 				Reset(obj);
 				score++;
+				counter++;
 			}
+		}
+
+		if(PlayerMovement.isShielded)
+		{
+			counter = 0;
+		}
+
+		if (counter >= numToDodge && !powerUp.activeSelf)
+		{
+			counter = 0;
+			powerUp.SetActive(true);
+			ResetPowerUp (powerUp);
+		}
+
+		Vector3 velo = powerUp.transform.rigidbody.velocity;
+		velo = (1 - curveVal) * velo.normalized + curveVal * (new Vector3 (0, -1, 0));
+		powerUp.transform.rigidbody.velocity = velo * asteroidSpeed;
+
+		if (powerUp.transform.position.y < bottomDespawn) 
+		{
+			ResetPowerUp (powerUp);
 		}
 	}
 
@@ -113,7 +146,8 @@ public class GameLogic : MonoBehaviour {
 				GUI.Label (new Rect(Screen.width/2.0f-200, Screen.height*.53f+50, 400, 100), newHighScore+""+score);
 			}
 
-			if (GUI.Button (new Rect (Screen.width/2.0f-100, Screen.height/2.0f+150, 200, 40), "Return to main menu"))
+			GUI.skin.button.alignment = TextAnchor.MiddleCenter;
+			if (GUI.Button (new Rect (Screen.width/2.0f-100, Screen.height*.7f+20, 200, 40), "Return to main menu"))
 			{
 				HighScore.getInstance().addNewScore(score);
 				HighScore.getInstance().writeToFile();
@@ -157,7 +191,7 @@ public class GameLogic : MonoBehaviour {
 		MeshRenderer rend = obj.GetComponent<MeshRenderer>();
 		rend.enabled = true;
 	}
-
+	
 	private void Create()
 	{
 		Vector3 pos = new Vector3 ((LeftBound() + RightBound())/2.0f, TopBound(), -20);
@@ -167,13 +201,28 @@ public class GameLogic : MonoBehaviour {
 		asteroids.Add(rock);
 	}
 
+	private void ResetPowerUp (GameObject obj)
+	{
+		Vector3 angVel = new Vector3 (Random.value - 0.5f, Random.value - 0.5f, Random.value - 0.5f);
+		angVel *= 2.0f;
+		
+		float randPos = Random.Range(LeftBound() - spawnSideExtra + 4, RightBound() - spawnSideExtra - 4);
+		Vector3 pos = new Vector3 (randPos, TopBound() + spawnTopExtra + Random.value*2, -20);
+		
+		float randVel = (Random.value - 0.5f) * 2.0f;
+		Vector3 vel = new Vector3 (randVel, -0.5f, 0);
+		vel.Normalize ();
+
+		obj.transform.rigidbody.velocity = vel * asteroidSpeed;
+		obj.transform.position = pos;
+		obj.transform.rigidbody.angularVelocity = angVel;
+	}
+
 	public void GameOver()
 	{
 		Time.timeScale = 0.0f;
 		gameOver = true;
 	}
-
-
 
 	public static float LeftBound()
 	{

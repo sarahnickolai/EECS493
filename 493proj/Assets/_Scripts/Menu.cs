@@ -29,14 +29,15 @@ public class Menu : MonoBehaviour {
 		GUI.skin.label.fontSize = 14;
 		var instr = "Use the arrow keys to move your ship and dodge asteroids!";
 		GUI.skin.label.alignment = TextAnchor.MiddleCenter;
-		GUI.Label (new Rect(Screen.width/2.0f-175, Screen.height*.65f-150, 350, 300), instr);
+		GUI.Label (new Rect(Screen.width/2.0f-200, Screen.height*.65f-150, 400, 300), instr);
 
-		if (GUI.Button (new Rect (Screen.width/2.0f-100, Screen.height/2.0f+120, 200, 40), "Start Game"))
+		GUI.skin.button.alignment = TextAnchor.MiddleCenter;
+		if (GUI.Button (new Rect (Screen.width/2.0f-100, Screen.height*.7f+20, 200, 40), "Start Game"))
 		{
 			Application.LoadLevel("Game");
 		}
 		
-		if (GUI.Button (new Rect (Screen.width/2.0f-100, Screen.height/2.0f+165, 200, 40), "Exit"))
+		if (GUI.Button (new Rect (Screen.width/2.0f-100, Screen.height*.8f+20, 200, 40), "Exit"))
 		{
 			Application.Quit ();
 		}

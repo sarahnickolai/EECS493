@@ -6,11 +6,14 @@ public class PlayerMovement : MonoBehaviour {
 	public float speed;
 	public float moveAngle;
 	public float angleSensitivity;
-	
+
+	static public bool isShielded = false;
+
 	// Use this for initialization
 	void Start () {
-		//GameObject obj = gameObject.transform.GetChild(0).gameObject;
-		//obj.SetActive(false);
+		GameObject obj = gameObject.transform.GetChild(0).gameObject;
+		obj.SetActive(false);
+		isShielded = false;
 	}
 	
 	// Update is called once per frame
@@ -88,6 +91,8 @@ public class PlayerMovement : MonoBehaviour {
 
 			GameObject obj = gameObject.transform.GetChild(0).gameObject;
 			obj.SetActive(true);
+
+			isShielded = true;
 		}
 	}
 	
